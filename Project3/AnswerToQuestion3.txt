@@ -1,0 +1,67 @@
+Looking at the graph the Y-Values break up into two parts. 
+
+The first part is a function that when t[0,9]
+
+From that you can simplify it so that the only value for a that makes that equation true is a=2
+
+So for the first part y =2  * sqrt(t).
+
+The second part you can infer from the points (9,6) and (12,0). This is just getting a line from two points. 
+
+That equation looks like -1.5t +18 =y for x = (9,12).
+
+The way to compute this in matlab is to break up the two parts of the graph into two t[] and y[] row matrices.
+
+t1 =[0:.01:9]; // there are 901 values here
+y1 = 2.*sqrt(t1);
+
+you can see this by this function
+plot(t1,y1);
+
+The second part of the graph is 
+t2 =[9.01:.01:12]; // 300 values you can start at 9.01 	
+		   //since the value of y2 at y2(9) is 6 the same as it is for the first part of the graph
+y2 = 24 - 2.*t2;
+
+Now you just need to combine them into one graph. 
+finT = [t1 t2];
+finY = [y1 y2];
+
+You can see the final graph here
+plot(finT,finY)
+
+At this point you just need to calculate rightRiemannSum(finT,finY).
+
+Note: I am using 1201 rectangles to calculate this.
+
+My answer was
+	ans =
+	    44.9996
+
+
+
+
+
+_______________________________________________________
+You can see the work by looking at this code after you save rightRiemannSum.mat in your working directory  :
+
+
+%%% The first part of graph
+t1 =[0:.01:9]; 
+y1 = 2.*sqrt(t1);
+plot(t1,y1);
+
+
+%%% The second part of graph
+t2 =[9.01:.01:12];
+y2 = 24 - 2.*t2;
+plot(t2,y2);
+
+%%% add the parts together
+finT = [t1 t2];
+finY = [y1 y2];
+plot(finT,finY)
+
+%%% get the approx area under the curve
+
+rightRiemannSum(finT,finY);
